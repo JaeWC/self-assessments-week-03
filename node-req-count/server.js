@@ -10,19 +10,21 @@ var server = http.createServer(function(request, response) {
 
   if (request.method === "POST") {
     // YOUR CODE HERE
-    globalCounter.post1 = 1;
-    if (request.url === "prop1") {
-      globalCounter.prop1++;
-    } else if (request.url === "prop2") {
-      globalCounter.prop1++;
+    if (request.url === "/prop1") {
+      globalCounter.prop1 === undefined
+        ? (globalCounter.prop1 = 1)
+        : globalCounter.prop1++;
+    } else if (request.url === "/prop2") {
+      globalCounter = {};
     }
-    response.statusCode = 301;
-    response.end(globalCounter.prop1);
+    response.statusCode = 201;
+    response.end();
   } else if (request.method === "GET") {
     // YOUR CODE HERE
-    console.log(globalCounter.prop1);
+    let result = JSON.stringify(globalCounter.prop1);
+
     response.statusCode = 200;
-    response.end(globalCounter.prop1);
+    response.end(result);
   } else {
     response.statusCode = 404;
     response.end();
